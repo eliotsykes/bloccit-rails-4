@@ -13,7 +13,7 @@ class TopicsController < ApplicationController
   def show
     @topic = Topic.find(params[:id])
     authorize @topic
-    @posts = @topic.posts.includes(:user).includes(:comments).paginate(page: params[:page], per_page: 10)
+    @posts = @topic.posts.eager_load(:user, :comments).paginate(page: params[:page], per_page: 10)
   end
 
   def edit
